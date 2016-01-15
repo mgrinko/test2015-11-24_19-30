@@ -2,20 +2,39 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="main.css">
-    <script src="app.js" defer></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="main.css">
+  <script src="app.js"></script>
 </head>
 
 <body>
 
-    <div id="clock">
-        <span class="hour">hh</span>:<span class="min">mm</span>:<span class="sec">ss</span>
-        <button class="start">start</button>
-        <button class="stop">stop</button>
-    </div>
+<div id="application">
 
-    <div id="clock2"></div>
+  <div class="filter">
+    <input type="text" class="filter_field">
+  </div>
+
+  <div class="menu">
+    <span class="menu_title">Сладости (нажми меня)!</span>
+    <ul>
+      <li>Торт</li>
+      <li>Пончик</li>
+      <li>Пирожное</li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+
+
+<script>
+  var app = new App({
+    element: document.getElementById('application')
+  });
+</script>
 
 </body>
 

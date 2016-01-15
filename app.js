@@ -1,54 +1,67 @@
 'use strict';
 
-class Timer {
-    constructor(options) {
-        this._el = options.elem;
+class App {
+  constructor(options) {
+    this._el = options.element;
 
-        this._startButton = this._el.querySelector('.start');
-        this._stopButton = this._el.querySelector('.stop');
+    this._menu = new Menu({
+      element: this._el.querySelector('.menu')
+    });
 
-        this._startButton.addEventListener('click', this._onStartButtonClick.bind(this));
-        this._stopButton.addEventListener('click', this._onStopButtonClick.bind(this));
-    }
+    this._filter = new Filter({
+      element: this._el.querySelector('.filter')
+    });
 
-    start() {
-        this._timerId = setInterval(this._update.bind(this), 1000);
-        this._update();
-    }
+    this._filter.getElement().addEventListener('filterValueChanged', this._onFilterValueChanged.bind(this))
+  }
 
-    stop() {
-        clearInterval(this._timerId);
-    }
+  _onFilterValueChanged(event) {
+    console.log(event.detail);
 
-    _onStartButtonClick(event) {
-        console.log(event);
-        this.start();
-    }
-
-    _onStopButtonClick() {
-        this.stop();
-    }
-
-    _update() {
-        var date = new Date();
-
-        var hours = date.getHours();
-        if (hours < 10) hours = '0' + hours;
-        this._el.children[0].innerHTML = hours;
-
-        var minutes = date.getMinutes();
-        if (minutes < 10) minutes = '0' + minutes;
-        this._el.children[1].innerHTML = minutes;
-
-        var seconds = date.getSeconds();
-        if (seconds < 10) seconds = '0' + seconds;
-        this._el.children[2].innerHTML = seconds;
-    }
-
-
+    this._menu.filter(event.detail.value);
+  }
 }
 
-var timer1 = new Timer({
-    elem: document.getElementById('clock')
-});
+class Menu {
+  constructor(options) {
+    this._el = options.element;
 
+    this._titleElem = this._el.querySelector('.menu_title');
+
+    this._titleElem.onclick = this._onTitleClick.bind(this);
+  }
+
+  filter(value) {
+    console.log(`Menu was litered with "${value}"`);
+  }
+
+  _onTitleClick(event) {
+    this._el.classList.toggle('open');
+  }
+}
+
+class Filter {
+  constructor(options) {
+    this._el = options.element;
+
+    this._field = this._el.querySelector('.filter_field');
+
+    this._field.addEventListener('input', this._onFieldInput.bind(this));
+  }
+
+  getElement() {
+    return this._el;
+  }
+
+  _onFieldInput() {
+    var event = new CustomEvent('filterValueChanged', {
+      detail: {
+        value: this._field.value
+      }
+    });
+
+    alert(this._field.value);
+
+    this._el.dispatchEvent(event);
+  }
+}
