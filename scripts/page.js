@@ -1,6 +1,9 @@
 'use strict';
 
-class Page {
+let Filter = require('./filter');
+let PhoneList = require('./phoneList');
+
+module.exports = class Page {
   constructor(options) {
     this._el = options.element;
 
@@ -17,6 +20,6 @@ class Page {
   }
 
   _onPhoneSelected(event) {
-    alert(event.detail.phoneId)
+    alert(event.detail.phoneId + 13)
   }
-}
+};

@@ -1,6 +1,8 @@
 'use strict';
 
-var phones = [
+let Page = require('./page');
+
+let phones = [
   {
     "age": 0,
     "id": "motorola-xoom-with-wi-fi",

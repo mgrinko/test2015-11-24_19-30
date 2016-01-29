@@ -1,10 +1,12 @@
 'use strict';
 
-class PhoneList {
+let template = require('./../templates/phoneListTemplate.html');
+
+module.exports = class PhoneList {
   constructor(options) {
     this._el = options.element;
 
-    this._template = document.getElementById('phone-list-template').innerHTML;
+    this._template = template;
     this._compiledTemplate = _.template(this._template);
 
     this._el.innerHTML = this._compiledTemplate({
@@ -31,6 +33,6 @@ class PhoneList {
 
     this._el.dispatchEvent(phoneSelectedEvent);
   }
-}
+};
 
 
