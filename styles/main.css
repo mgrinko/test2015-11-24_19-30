@@ -7,10 +7,15 @@
 
 .menu {
 	width: 500px;
+	min-height: 300px;
 }
 
 .main-content {
 	max-width: 66%;
 	float: left;
 	border: solid 1px black;
+}
+
+.loading {
+	background-color: #006600;
 }
