@@ -1,0 +1,8 @@
+<span>We have <%- phones.length %> phones</span>
+<ul>
+	<% phones.forEach(function(phone) { %>
+	<li class="phone" data-phone-id="<%- phone.id %>"><%- phone.age %>
+		<a href="#<%- phone.id %>"><%- phone.name %></a>
+	</li>
+	<% }); %>
+</ul>
