@@ -1,0 +1,16 @@
+.side-panel {
+	max-width: 33%;
+	overflow-x: hidden;
+	border: solid 1px black;
+	float: left;
+}
+
+.menu {
+	width: 500px;
+}
+
+.main-content {
+	max-width: 66%;
+	float: left;
+	border: solid 1px black;
+}

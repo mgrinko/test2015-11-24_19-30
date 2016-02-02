@@ -1,5 +1,7 @@
 'use strict';
 
+require('./../styles/main.css');
+
 let Page = require('./page');
 
 let phones = [
