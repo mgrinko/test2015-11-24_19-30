@@ -34,22 +34,22 @@ module.exports = class Page {
   }
 
   _onPhoneSelected(event) {
-    this._phoneList._el.addEventListener('mouseout', function(event) {
-      if (!event.target.classList.contains('phone')) {
-        return;
-      }
-    });
-
-    var request = this._sendRequest({
+    var requestPromise = this._sendRequest({
       method: 'GET',
       url: `./data/phones/${event.detail.phoneId}.json`
     });
 
-    request.then(this._onPhoneDetailsLoaded.bind(this));
+    var mouseoutPromise = this._createMouseoutPromise();
+
+    Promise.all([requestPromise, mouseoutPromise])
+      .then(this._onPhoneDetailsLoaded.bind(this))
+      .catch(e => console.log(e));
   }
 
-  _onPhoneDetailsLoaded(phone) {
-    this._renderPhone(phone);
+  _onPhoneDetailsLoaded(results) {
+    var phoneData = results[0];
+
+    this._renderPhone(phoneData);
   }
 
   _renderPhone(phoneData) {
@@ -77,5 +77,17 @@ module.exports = class Page {
 
       xhr.send();
     });
+  }
+
+  _createMouseoutPromise() {
+    return new Promise(function(resolve, reject) {
+      this._phoneList._el.addEventListener('mouseout', function(event) {
+        //if (!event.target.classList.contains('phone')) {
+        //  return;
+        //}
+
+        resolve(true);
+      });
+    }.bind(this));
   }
 };
