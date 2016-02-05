@@ -13,7 +13,7 @@ module.exports = class PhoneList {
       phones: options.phones
     });
 
-    this._el.addEventListener('click', this._onPhoneClick.bind(this))
+    this._el.addEventListener('click', this._onPhoneClick.bind(this));
   }
 
   _onPhoneClick(event) {
