@@ -6,6 +6,7 @@ let PhoneList = require('./phoneList');
 module.exports = class Page {
   constructor(options) {
     this._el = options.element;
+    this._content = this._el.querySelector('.main-content');
 
     this._el.classList.add('loading');
 
@@ -44,6 +45,24 @@ module.exports = class Page {
   }
 
   _onPhoneSelected(event) {
-    console.log('animation enabled');
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', `./data/phones/${event.detail.phoneId}.json`, true);
+
+    xhr.onload = function() {
+      if (xhr.status !== 200) {
+        alert( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+      } else {
+        var phone = JSON.parse(xhr.responseText);
+
+        this._renderPhone(phone);
+      }
+    }.bind(this);
+
+    xhr.send();
+  }
+
+  _renderPhone(phoneData) {
+    this._content.innerHTML = `<img src="${phoneData.images[0]}">`;
   }
 };

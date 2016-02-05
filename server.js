@@ -11,13 +11,11 @@ function accept(req, res) {
     console.log(req.url + ' Hello!');
 
     if (req.url == '/data/phones.json') {
-      setTimeout(function() {
-        file.serve(req, res);
-      }, 2000);
+      file.serve(req, res);
     } else {
       file.serve(req, res);
     }
-  }, 5000);
+  }, 2000);
 }
 
 if (!module.parent) {
